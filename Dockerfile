@@ -2,13 +2,14 @@ FROM ubuntu:20.04
 
 # Cài đặt các phụ thuộc và cấu hình tzdata để tránh yêu cầu nhập múi giờ
 ENV DEBIAN_FRONTEND=noninteractive
+RUN # Thay bsdtar bằng libarchive-tools
 RUN apt-get update && apt-get install -y \
     tzdata \
     wget curl unzip git sudo \
     proot pulseaudio \
     tightvncserver novnc websockify \
     python3 xterm \
-    p7zip-full bsdtar \
+    p7zip-full libarchive-tools \
     && apt-get clean
 
 # Cấu hình múi giờ mặc định (ví dụ: UTC)
