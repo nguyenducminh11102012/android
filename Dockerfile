@@ -1,13 +1,19 @@
 FROM ubuntu:20.04
 
-# Cài đặt các phụ thuộc
+# Cài đặt các phụ thuộc và cấu hình tzdata để tránh yêu cầu nhập múi giờ
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y \
+    tzdata \
     wget curl unzip git sudo \
     proot pulseaudio \
     tightvncserver novnc websockify \
     python3 xterm \
     && apt-get clean
 
+# Cấu hình múi giờ mặc định (ví dụ: UTC)
+RUN ln -fs /usr/share/zoneinfo/UTC /etc/localtime && dpkg-reconfigure -f noninteractive tzdata
+
+# Tiến hành các bước còn lại của Dockerfile...
 # Tạo thư mục cho Android 10 x86
 RUN mkdir -p /root/android-fs && cd /root/android-fs \
     && wget https://github.com/android-x86/android-x86/releases/download/10.0-r2/android-x86_64-10.0-r2.iso \
