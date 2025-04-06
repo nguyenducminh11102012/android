@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
     proot pulseaudio \
     tightvncserver novnc websockify \
     python3 xterm \
-    p7zip-full bsdtar \
+    p7zip-full libarchive-tools \
     && apt-get clean
 
 # Cấu hình múi giờ mặc định (ví dụ: UTC)
