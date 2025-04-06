@@ -17,7 +17,9 @@ RUN ln -fs /usr/share/zoneinfo/UTC /etc/localtime && dpkg-reconfigure -f noninte
 RUN mkdir -p /root/android-fs && cd /root/android-fs \
     && wget https://www.fosshub.com/Android-x86.html?dwl=android-x86-9.0-r2.iso -O android-x86-9.0-r2.iso \
     && mkdir /root/android-fs/iso \
-    && mount -o loop android-x86-9.0-r2.iso /root/android-fs/iso
+    && apt-get install -y p7zip-full \
+    && 7z x android-x86-9.0-r2.iso -o/root/android-fs/iso \
+    && rm android-x86-9.0-r2.iso  # Xóa ISO sau khi giải nén
 
 # Cài mật khẩu cho VNC
 RUN echo "password" | vncpasswd -f > /root/.vnc/passwd && chmod 600 /root/.vnc/passwd
