@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     proot pulseaudio \
     tightvncserver novnc websockify \
     python3 xterm \
+    p7zip-full bsdtar \
     && apt-get clean
 
 # Cấu hình múi giờ mặc định (ví dụ: UTC)
@@ -15,10 +16,9 @@ RUN ln -fs /usr/share/zoneinfo/UTC /etc/localtime && dpkg-reconfigure -f noninte
 
 # Tạo thư mục cho Android 9.0 x86
 RUN mkdir -p /root/android-fs && cd /root/android-fs \
-    && wget https://archive.org/download/bliss-v-11x-android9-x86_64/Bliss-v11.14--OFFICIAL-20210508-1013_x86_64_k-k4.19.122-ax86-ga-rmi_m-20.1.10_pie-x86_dgc-p9.0-11.13_ld-p9.0-x86_dg-_dh-blueprint_pie-x86_w45_2020_mg-p9.0-x86.iso \
+    && wget -q https://archive.org/download/bliss-v-11x-android9-x86_64/Bliss-v11.14--OFFICIAL-20210508-1013_x86_64_k-k4.19.122-ax86-ga-rmi_m-20.1.10_pie-x86_dgc-p9.0-11.13_ld-p9.0-x86_dg-_dh-blueprint_pie-x86_w45_2020_mg-p9.0-x86.iso \
     && mkdir /root/android-fs/iso \
-    && apt-get install -y p7zip-full \
-    && 7z x android-x86-9.0-r2.iso -o/root/android-fs/iso \
+    && bsdtar -xvf android-x86-9.0-r2.iso -C /root/android-fs/iso \
     && rm android-x86-9.0-r2.iso  # Xóa ISO sau khi giải nén
 
 # Cài mật khẩu cho VNC
