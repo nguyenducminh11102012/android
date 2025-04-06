@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
     qemu-system-x86 \
     novnc \
     websockify \
-    gunzip \
+    gzip \
     && rm -rf /var/lib/apt/lists/*
 
 # Tải và giải nén Windows 7 image
